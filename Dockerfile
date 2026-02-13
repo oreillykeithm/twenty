@@ -52,6 +52,10 @@ RUN corepack enable \
 
 # Only copy the server package runtime + its built output + root node_modules.
 COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/yarn.lock /app/yarn.lock
+COPY --from=build /app/.yarnrc.yml /app/.yarnrc.yml
+COPY --from=build /app/.yarn /app/.yarn
+
 COPY --from=build /app/package.json /app/package.json
 COPY --from=build /app/packages/twenty-server /app/packages/twenty-server
 

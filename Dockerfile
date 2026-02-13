@@ -39,6 +39,7 @@ COPY . .
 
 # Build workspace deps required at runtime (twenty-server imports twenty-shared exports like "twenty-shared/utils").
 RUN yarn nx run twenty-shared:build
+RUN yarn nx run twenty-emails:build
 
 RUN cd packages/twenty-server \
   && rm -rf dist \

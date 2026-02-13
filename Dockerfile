@@ -57,6 +57,12 @@ COPY --from=build /app/.yarnrc.yml /app/.yarnrc.yml
 COPY --from=build /app/.yarn /app/.yarn
 
 COPY --from=build /app/package.json /app/package.json
+# Needed for ts-node based scripts (some Railway commands still invoke them)
+COPY --from=build /app/tsconfig.base.json /app/tsconfig.base.json
+# Workspace deps are symlinked under node_modules; copy the actual packages to satisfy Node resolution
+COPY --from=build /app/packages/twenty-shared /app/packages/twenty-shared
+COPY --from=build /app/packages/twenty-emails /app/packages/twenty-emails
+
 COPY --from=build /app/packages/twenty-server /app/packages/twenty-server
 
 EXPOSE 3000

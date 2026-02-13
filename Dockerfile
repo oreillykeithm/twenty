@@ -37,6 +37,9 @@ RUN yarn install
 # Now copy the rest of the repo and build just the server.
 COPY . .
 
+# Build workspace deps required at runtime (twenty-server imports twenty-shared exports like "twenty-shared/utils").
+RUN yarn nx run twenty-shared:build
+
 RUN cd packages/twenty-server \
   && rm -rf dist \
   && ../../node_modules/.bin/nest build --path ./tsconfig.build.json
